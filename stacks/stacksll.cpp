@@ -1,0 +1,88 @@
+#include <iostream>
+using namespace std;
+
+// Node structure
+struct Node {
+    int data;
+    Node* next;
+};
+
+// Stack implementation using linked list
+struct myStack {
+    Node* top;   // pointer to top node
+    int count;   // to store current size of stack
+
+    // initialize stack
+    void init() {
+        top = NULL;
+        count = 0;
+    }
+
+    // push operation
+    void push(int x) {
+        Node* temp = new Node;   // create a new node manually
+        temp->data = x;
+        temp->next = top;
+        top = temp;
+        count++;
+    }
+
+    // pop operation
+    int pop() {
+        if (top == NULL) {
+            cout << "Stack Underflow" << endl;
+            return -1;
+        }
+
+        Node* temp = top;
+        int val = temp->data;
+        top = top->next;
+        delete temp;
+        count--;
+        return val;
+    }
+
+    // peek operation
+    int peek() {
+        if (top == NULL) {
+            cout << "Stack is Empty" << endl;
+            return -1;
+        }
+        return top->data;
+    }
+
+    // check if stack is empty
+    bool isEmpty() {
+        return top == NULL;
+    }
+
+    // size of stack
+    int size() {
+        return count;
+    }
+};
+
+int main() {
+    myStack st;
+    st.init();   // initialize stack
+
+    // pushing elements
+    st.push(1);
+    st.push(2);
+    st.push(3);
+    st.push(4);
+
+    // popping one element
+    cout << "Popped: " << st.pop() << endl;
+
+    // checking top element
+    cout << "Top element: " << st.peek() << endl;
+
+    // checking if stack is empty
+    cout << "Is stack empty: " << (st.isEmpty() ? "Yes" : "No") << endl;
+
+    // checking current size
+    cout << "Current size: " << st.size() << endl;
+
+    return 0;
+}
